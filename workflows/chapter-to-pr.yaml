@@ -1,0 +1,30 @@
+version: 1
+name: chapter-to-pr
+inputs:
+  - task
+  - approved_specification
+steps:
+  - id: verify-context
+    action: verify-repository-reality
+    on_drift: stop-and-report
+  - id: plan
+    action: classify-didactic-and-canonical-changes
+  - id: implement
+    agents:
+      - chapter-author
+      - kotlin-implementer
+  - id: test
+    workflow: quality-gates
+  - id: review-mathematics
+    agent: math-reviewer
+  - id: review-documentation
+    agent: documentation-reviewer
+  - id: final-gates
+    workflow: quality-gates
+  - id: prepare-pr
+    action: summarize-changes-evidence-and-risks
+outputs:
+  - changed_files
+  - validation_evidence
+  - review_findings
+  - configuration_drift

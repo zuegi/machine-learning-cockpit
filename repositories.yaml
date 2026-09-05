@@ -1,0 +1,35 @@
+version: 1
+repositories:
+  - id: learn-neural-networks
+    url: https://github.com/zuegi/learn-neural-networks
+    stack:
+      language: Kotlin
+      kotlin: "2.4"
+      java: "17"
+      build: Maven
+      layout: multi-module
+    modules:
+      - shared
+      - kapitel2
+      - kapitel3
+      - kapitel4
+      - kapitel5
+    paths:
+      documentation: docs/book
+      specifications: docs/specifications
+      decisions: docs/decisions
+      didactic:
+        - kapitel3
+        - kapitel4/scratch
+      canonical:
+        - shared
+        - kapitel4/library/autograd
+      consumers:
+        - kapitel5
+    validation:
+      full:
+        - ./mvnw verify
+      affected_module:
+        - ./mvnw -pl <module> -am test
+      compile:
+        - ./mvnw -DskipTests compile

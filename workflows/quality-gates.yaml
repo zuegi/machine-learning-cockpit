@@ -1,0 +1,24 @@
+version: 1
+name: quality-gates
+gates:
+  - id: configuration
+    check: Configured paths, modules, versions, and commands match repository reality.
+    failure: stop-and-report-drift
+  - id: affected-module-tests
+    command: ./mvnw -pl <module> -am test
+    required: true
+  - id: compile
+    command: ./mvnw -DskipTests compile
+    required: true
+  - id: architecture
+    check: Didactic and canonical paths follow policies/architecture.md.
+    required: true
+  - id: mathematical-correctness
+    check: Shapes, deterministic tests, and applicable numerical invariants pass.
+    required: true
+  - id: documentation
+    check: AsciiDoc matches code, learning goals, and source policy.
+    required: true
+  - id: full-verify
+    command: ./mvnw verify
+    required: true

@@ -1,0 +1,20 @@
+id: chapter-<number>-<slug>
+title: <title>
+status: draft
+specification: docs/specifications/<spec-file>.md
+agents:
+  - chapter-author
+  - kotlin-implementer
+  - math-reviewer
+  - documentation-reviewer
+scope:
+  chapter: <docs/book/path>
+  implementation:
+    - <module/path>
+requirements:
+  - <requirement>
+gates:
+  - affected-module-tests
+  - architecture
+  - mathematical-correctness
+  - documentation

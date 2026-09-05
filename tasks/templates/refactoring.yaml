@@ -1,0 +1,22 @@
+id: refactor-<slug>
+title: <title>
+status: draft
+specification: docs/specifications/<spec-file>.md
+agents:
+  - kotlin-implementer
+  - math-reviewer
+scope:
+  sources:
+    - <path>
+  canonical_target: <shared-or-kapitel4-library-path>
+  consumers:
+    - <path>
+requirements:
+  - Preserve observable behavior with deterministic tests.
+  - Keep justified didactic scratch implementations.
+  - Remove canonical duplication from consumers.
+gates:
+  - affected-module-tests
+  - architecture
+  - mathematical-correctness
+  - full-verify
