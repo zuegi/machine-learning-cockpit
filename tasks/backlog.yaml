@@ -1,6 +1,87 @@
 version: 1
 repository: learn-neural-networks
 tasks:
+  - id: chapter-05-attention
+    title: Implement chapter 5 attention
+    status: ready
+    specification: docs/specifications/chapter-05-attention.md
+    agents:
+      - chapter-author
+      - kotlin-implementer
+      - math-reviewer
+      - documentation-reviewer
+    scope:
+      chapter: docs/book/kapitel/05-attention.adoc
+      implementation:
+        - kapitel4/src/main/kotlin/ch/zuegi/ml/llm/kapitel4/library/autograd
+        - kapitel4/src/main/kotlin/ch/zuegi/ml/llm/kapitel4/scratch/autograd
+      tests:
+        - kapitel4/src/test/kotlin/ch/zuegi/ml/llm/kapitel4/library/autograd
+        - kapitel4/src/test/kotlin/ch/zuegi/ml/llm/kapitel4/scratch/autograd
+      canonical_dependencies:
+        - shared
+        - kapitel4/library/autograd
+    subtasks:
+      - id: ATT-01
+        title: Correct AsciiDoc paths and include variables
+        status: done
+        depends_on: []
+      - id: ATT-02
+        title: Document the canonical MultiHeadAttentionMultikTensor API and forward flow
+        status: ready
+        depends_on: [ATT-01]
+      - id: ATT-03
+        title: Add Q/K/V, head, score, weight, and output shape derivation
+        status: ready
+        depends_on: [ATT-02]
+      - id: ATT-04
+        title: Explain causal masking before softmax and training-only dropout
+        status: ready
+        depends_on: [ATT-02]
+      - id: ATT-05
+        title: Separate scratch code from the canonical training path
+        status: ready
+        depends_on: [ATT-02]
+      - id: ATT-06
+        title: Add references for output, reproducibility, dropout, parameters, and gradients
+        status: ready
+        depends_on: [ATT-02, ATT-03]
+      - id: ATT-07
+        title: Align chapter 3, chapter 4, and book-structure references
+        status: ready
+        depends_on: [ATT-01, ATT-02, ATT-03, ATT-04, ATT-05, ATT-06]
+      - id: ATT-08
+        title: Test softmax rows, causal masking, and ctx edge cases
+        status: ready
+        depends_on: [ATT-04, ATT-06]
+      - id: ATT-09
+        title: Specify per-head shapes and embedding/head dimension behavior
+        status: ready
+        depends_on: [ATT-03]
+      - id: ATT-10
+        title: Add finite-difference validation for selected autograd gradients
+        status: ready
+        depends_on: [ATT-06]
+      - id: ATT-11
+        title: Test numerically stable softmax with large and masked scores
+        status: ready
+        depends_on: [ATT-04, ATT-08]
+      - id: ATT-12
+        title: Decide whether to add the perplexity follow-up
+        status: deferred
+        depends_on: [ATT-07]
+    requirements:
+      - Keep exactly one highlighted canonical training path.
+      - Keep chapter documentation aligned with the actual Kotlin API and paths.
+      - Document and test tensor-shape and causal-mask invariants.
+      - Add deterministic tests for reproducibility, dropout, edge cases, and gradients.
+      - Keep perplexity optional until chapter training metrics are in scope.
+    gates:
+      - affected-module-tests
+      - architecture
+      - mathematical-correctness
+      - documentation
+      - full-verify
   - id: chapter-06-training
     title: Implement chapter 6 training
     status: ready
